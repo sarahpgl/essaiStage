@@ -1,0 +1,1 @@
+[{'service1': [{'name': "b'grafana-server.exe'", 'etat': '1'}]}, {'service2': [{'name': "b'grafana.exe'", 'etat': '1'}]}]
