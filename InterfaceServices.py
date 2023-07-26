@@ -9,7 +9,7 @@ import json
 #récupération des services actifs via une requête sur la base InfluxDB où est stocké l'état des services
 def getServices() :
     
-    
+    #test
 
     # Envoie d'un get request à l'API URL
     response = requests.get('http://172.16.148.2:8086/query?pretty=true&db=supervision&q=SELECT * FROM "services"WHERE (time <= now() OR time >= now()-120m) ORDER BY time DESC',headers = {"Authorization": "Token 21lky0BPD-W_WcgWY4fcxIiMNhfN-WOwYfMopCXF5B0SMzaRK7-EGGocn4nbPqMy2X4qm7DWJO-aigtVNou7_w=="})
