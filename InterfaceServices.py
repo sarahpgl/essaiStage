@@ -19,17 +19,24 @@ def getServices() :
     service =[]
     data2= str(data).split("values")[1].split("[")
     iter = 0
+    
     for i in data2 :
-        if iter <=4 :
-            iter +=1
+       
+        if iter <=5 :
+            
+            
             s= i.split("]")
+            
             if len(s)>1:
-                s2= s[0].split("'")
+                s2= s[0].split("'") 
+                
                 #récupération de l'état
                 s3 = s2[2].split(",")
                 if s3[1] == ' 1' :
                     #ajout du service dont l'état est 1 
-                    service.append(s2[5])         
+                    service.append(s2[5]) 
+                    
+            iter +=1               
     return service
 
 #paramètres application Flask
