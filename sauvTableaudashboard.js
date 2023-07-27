@@ -24,7 +24,7 @@ for ( i =0; i<data.series[0].fields[0].values.buffer.length; i++){
   }
 }
 totalcartonbrun =data.series[0].fields[2].values.buffer[indexcartonbrun]+data.series[0].fields[4].values.buffer[indexcartonbrun]+data.series[0].fields[6].values.buffer[indexcartonbrun]+data.series[0].fields[8].values.buffer[indexcartonbrun]+data.series[0].fields[10].values.buffer[indexcartonbrun];
-
+console.log(totalcartonbrun)
 indexcartonnettes =0;
 for ( i =0; i<data.series[0].fields[0].values.buffer.length; i++){
   if(data.series[0].fields[0].values.buffer[i]== "fiber_boxboard"){
@@ -60,7 +60,27 @@ for ( i =0; i<data.series[0].fields[0].values.buffer.length; i++){
 
 totalrefus=0
 for (i=0; i<indexrefus.length; i++){
-  totalrefus +=data.series[0].fields[2].values.buffer[indexrefus[i]]+data.series[0].fields[4].values.buffer[indexrefus[i]]+data.series[0].fields[6].values.buffer[indexrefus[i]]+data.series[0].fields[8].values.buffer[indexrefus[i]]+data.series[0].fields[10].values.buffer[indexrefus[i]];
+    var1 =data.series[0].fields[2].values.buffer[indexrefus[i]]
+    var2=data.series[0].fields[4].values.buffer[indexrefus[i]]
+    var3=data.series[0].fields[6].values.buffer[indexrefus[i]]
+    var4=data.series[0].fields[8].values.buffer[indexrefus[i]]
+    var5=data.series[0].fields[10].values.buffer[indexrefus[i]]
+     if (isNaN(var1) ){
+        var1=0
+     }
+     if (isNaN(var2) ){
+        var2=0
+     }
+     if (isNaN(var3) ){
+        var3=0
+     }
+     if (isNaN(var4) ){
+        var4=0
+     }
+     if (isNaN(var5) ){
+        var5=0
+     }
+  totalrefus +=var1+var2+var3+var4+var5;
 }
 
 
@@ -264,7 +284,7 @@ for (i = 0; i< data.series[0].fields[2].values.buffer.length; i++)
   {
     if (data.series[0].fields[6].values.buffer[i] != null){
          total164 +=data.series[0].fields[6].values.buffer[i]
- 
+
     }
   }
 
@@ -273,7 +293,7 @@ for (i = 0; i< data.series[0].fields[2].values.buffer.length; i++)
   {
     if (data.series[0].fields[8].values.buffer[i] != null){
          total165 +=data.series[0].fields[8].values.buffer[i]
- 
+
     }
   }
 
@@ -282,7 +302,7 @@ for (i = 0; i< data.series[0].fields[2].values.buffer.length; i++)
   {
     if (data.series[0].fields[10].values.buffer[i] != null){
          total166 +=data.series[0].fields[10].values.buffer[i]
- 
+
     }
   }
    total167 =0
@@ -303,7 +323,7 @@ if (htmlgraphicsValue) {
 value =0
   value =data.series[0].fields[13].values.left.buffer[indexjrm]*data.series[0].fields[13].values.right.buffer[indexjrm];
 
-    htmlgraphicsValue.textContent = (value).toPrecision(3);
+    htmlgraphicsValue.textContent = (value).toPrecision(3) /1000;
  
 }
 
@@ -316,7 +336,7 @@ if (htmlgraphicsValue) {
     value =data.series[0].fields[14].values.left.buffer[indexcartonbrun]*data.series[0].fields[14].values.right.buffer[indexcartonbrun];
     value2 =data.series[0].fields[14].values.left.buffer[indexcartonnettes]*data.series[0].fields[14].values.right.buffer[indexcartonnettes];
 
-    htmlgraphicsValue.textContent = (value+value2).toPrecision(3);
+    htmlgraphicsValue.textContent = (value+value2).toPrecision(3) /1000;
  
 }
 
@@ -330,7 +350,7 @@ if (htmlgraphicsValue) {
     }
     
 
-    htmlgraphicsValue.textContent = (value).toPrecision(3);
+    htmlgraphicsValue.textContent = (value).toPrecision(3)/1000;
 }  
    
 
@@ -346,7 +366,7 @@ if (htmlgraphicsValue) {
         value+=data.series[0].fields[15].values.left.buffer[indexfilm[j]]*data.series[0].fields[15].values.right.buffer[indexfilm[j]];
     }
 
-    htmlgraphicsValue.textContent = (value).toPrecision(3);
+    htmlgraphicsValue.textContent = (value).toPrecision(3)/1000 ;
   
    
 }
@@ -361,7 +381,7 @@ if (htmlgraphicsValue) {
     }
     
 
-    htmlgraphicsValue.textContent = (value).toPrecision(3);
+    htmlgraphicsValue.textContent = (value).toPrecision(3)/1000;
 }  
    
 
@@ -373,7 +393,7 @@ if (htmlgraphicsValue) {
   value = 0
   value =data.series[0].fields[2].values.buffer[indexjrm];
   
-  htmlgraphicsValue.textContent = (value/total163).toPrecision(3);
+  htmlgraphicsValue.textContent = (value/total163).toPrecision(3) * 100;
  
 }
 
@@ -387,7 +407,7 @@ value2=0
   
 
 
-    htmlgraphicsValue.textContent = ((value+value2)/total164).toPrecision(3);
+    htmlgraphicsValue.textContent = ((value+value2)/total164).toPrecision(3) * 100;
 
 }
 //PET
@@ -399,7 +419,7 @@ if (htmlgraphicsValue) {
         value += data.series[0].fields[10].values.buffer[indexpppe[j]];
     }
     
-    htmlgraphicsValue.textContent = ((value)/total166).toPrecision(3);
+    htmlgraphicsValue.textContent = ((value)/total166).toPrecision(3) *100;
   
 }
 
@@ -415,10 +435,10 @@ if (htmlgraphicsValue) {
     for ( j = 0; j< indexfilm.length; j++){
         value += data.series[0].fields[8].values.buffer[indexfilm[j]];
     } 
-
+ 
  
 
-    htmlgraphicsValue.textContent = ((value)/total165).toPrecision(3);
+    htmlgraphicsValue.textContent = ((value)/total165).toPrecision(3)*100;
   
 }
 
@@ -432,7 +452,7 @@ if (htmlgraphicsValue) {
         value += data.series[0].fields[4].values.buffer[indexfonce[j]];
     }
     
-    htmlgraphicsValue.textContent = ((value)/total167).toPrecision(3);
+    htmlgraphicsValue.textContent = ((value)/total167).toPrecision(3)*100;
   
 }
 
@@ -445,8 +465,8 @@ if (htmlgraphicsValue) {
     for ( j = 0; j< indexrefus.length; j++){
         value += data.series[0].fields[2].values.buffer[indexrefus[j]];
     }  
-
-    htmlgraphicsValue.textContent =(total163/(total163+ value)).toPrecision(3);
+    capt1 = (total163/(total163+ value))
+    htmlgraphicsValue.textContent =capt1.toPrecision(3)*100;
 
 }
 
@@ -458,10 +478,16 @@ if (htmlgraphicsValue) {
    
     value =0
     for ( j = 0; j< indexrefus.length; j++){
-        value += data.series[0].fields[6].values.buffer[indexrefus[j]];
-    }  
+        var1 =data.series[0].fields[6].values.buffer[indexrefus[j]];
+        if (isNaN(var1)){
+        var1=0
 
-    htmlgraphicsValue.textContent =(total164/(total164+ value)).toPrecision(3);
+        }
+        value += var1
+        
+    }  
+    capt2 = (total164/(total164+ value))
+    htmlgraphicsValue.textContent =capt2.toPrecision(3)*100;
  
 }
 //PET
@@ -475,8 +501,8 @@ if (htmlgraphicsValue) {
     for ( j = 0; j< indexrefus.length; j++){
         value += data.series[0].fields[10].values.buffer[indexrefus[j]];
     }  
-
-    htmlgraphicsValue.textContent =(total166/(total166+ value)).toPrecision(3);
+    capt3 =(total166/(total166+ value))
+    htmlgraphicsValue.textContent =capt3.toPrecision(3) *100;
 }
 
 //REFUS
@@ -489,8 +515,8 @@ if (htmlgraphicsValue) {
     for ( j = 0; j< indexrefus.length; j++){
         value += data.series[0].fields[8].values.buffer[indexrefus[j]];
     }  
-
-    htmlgraphicsValue.textContent =(total165/(total165+ value)).toPrecision(3);
+    capt4 = (total165/(total165+ value))
+    htmlgraphicsValue.textContent =capt4.toPrecision(3)*100;
 }
 
 //PET FONCE ET AUTRES
@@ -502,8 +528,8 @@ if (htmlgraphicsValue) {
     for ( j = 0; j< indexrefus.length; j++){
         value += data.series[0].fields[4].values.buffer[indexrefus[j]];
     }  
-
-    htmlgraphicsValue.textContent =(total167/(total167+ value)).toPrecision(3);
+    capt5 =(total167/(total167+ value))
+    htmlgraphicsValue.textContent =capt5.toPrecision(3)*100;
 }
 
 
@@ -1015,44 +1041,39 @@ htmlgraphicsValue = htmlNode.getElementById('perte1');
 
 if (htmlgraphicsValue) {
   
-    perte1 =(100-(parseFloat(diffusionjrm1)+parseFloat(diffusionemr1)+parseFloat(diffusionfonce1)+parseFloat(diffusionfilm1)+parseFloat(diffusionpet1))).toPrecision(4);
-    
-    htmlgraphicsValue.textContent = perte1
+    perte1 =(1-capt1)
+    htmlgraphicsValue.textContent = perte1.toPrecision(2)*100
 }
 
 htmlgraphicsValue = htmlNode.getElementById('perte2');
 
 if (htmlgraphicsValue) {
   
-  perte2=(100-(parseFloat(diffusionjrm2)+parseFloat(diffusionemr2)+parseFloat(diffusionfonce2)+parseFloat(diffusionfilm2)+parseFloat(diffusionpet2))).toPrecision(4);
-    
-    htmlgraphicsValue.textContent = perte2
+  perte2=(1-capt2)
+    htmlgraphicsValue.textContent = perte2.toPrecision(2)*100
 }
 
 htmlgraphicsValue = htmlNode.getElementById('perte3');
 
 if (htmlgraphicsValue) {
   
-  perte3 =(100-(parseFloat(diffusionjrm3)+parseFloat(diffusionemr3)+parseFloat(diffusionfonce3)+parseFloat(diffusionfilm3)+parseFloat(diffusionpet3))).toPrecision(4);
-    
-    htmlgraphicsValue.textContent = perte3
+  perte3 =(1-capt3)
+    htmlgraphicsValue.textContent = perte3.toPrecision(2) *100
 }
 
 htmlgraphicsValue = htmlNode.getElementById('perte4');
 
 if (htmlgraphicsValue) {
   
-  perte4 =(100-(parseFloat(diffusionjrm4)+parseFloat(diffusionemr4)+parseFloat(diffusionfonce4)+parseFloat(diffusionfilm4)+parseFloat(diffusionpet4))).toPrecision(4);
-    
-    htmlgraphicsValue.textContent = perte4
+  perte4 =(1-capt4)
+    htmlgraphicsValue.textContent = perte4.toPrecision(2) *100
 }
 htmlgraphicsValue = htmlNode.getElementById('perte5');
 
 if (htmlgraphicsValue) {
   
-  perte5=(100-(parseFloat(diffusionjrm5)+parseFloat(diffusionemr5)+parseFloat(diffusionfonce5)+parseFloat(diffusionfilm5)+parseFloat(diffusionpet5))).toPrecision(4);
-    
-    htmlgraphicsValue.textContent =perte5
+  perte5=(1-capt5)
+    htmlgraphicsValue.textContent =perte5.toPrecision(2) *100
 }
 
 htmlgraphicsValue = htmlNode.getElementById('pertetotale');
@@ -1060,7 +1081,7 @@ htmlgraphicsValue = htmlNode.getElementById('pertetotale');
 if (htmlgraphicsValue) {
   
   
-    htmlgraphicsValue.textContent = parseFloat(perte1) + parseFloat(perte2) + parseFloat(perte3) + parseFloat(perte4) +parseFloat(perte5).toPrecision(4);
+    htmlgraphicsValue.textContent = (parseFloat(perte1) + parseFloat(perte2) + parseFloat(perte3) + parseFloat(perte4) +parseFloat(perte5)).toPrecision(4) *100;
 }
 value =data.series
 console.log(value)
