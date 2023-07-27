@@ -57,9 +57,10 @@ for ( i =0; i<data.series[0].fields[0].values.buffer.length; i++){
  
 }
 
+
 totalrefus=0
 for (i=0; i<indexrefus.length; i++){
-  totalrefus =data.series[0].fields[2].values.buffer[indexrefus[i]]+data.series[0].fields[4].values.buffer[indexrefus[i]]+data.series[0].fields[6].values.buffer[indexrefus[i]]+data.series[0].fields[8].values.buffer[indexrefus[i]]+data.series[0].fields[10].values.buffer[indexrefus[i]];
+  totalrefus +=data.series[0].fields[2].values.buffer[indexrefus[i]]+data.series[0].fields[4].values.buffer[indexrefus[i]]+data.series[0].fields[6].values.buffer[indexrefus[i]]+data.series[0].fields[8].values.buffer[indexrefus[i]]+data.series[0].fields[10].values.buffer[indexrefus[i]];
 }
 
 
@@ -78,7 +79,8 @@ for ( i =0; i<data.series[0].fields[0].values.buffer.length; i++){
 
 totalfilm=0
 for (i=0; i<indexfilm.length; i++){
-  totalfilm =data.series[0].fields[2].values.buffer[indexfilm[i]]+data.series[0].fields[4].values.buffer[indexfilm[i]]+data.series[0].fields[6].values.buffer[indexfilm[i]]+data.series[0].fields[8].values.buffer[indexfilm[i]]+data.series[0].fields[10].values.buffer[indexfilm[i]];
+   totalfilm +=data.series[0].fields[2].values.buffer[indexfilm[i]]+data.series[0].fields[4].values.buffer[indexfilm[i]]+data.series[0].fields[6].values.buffer[indexfilm[i]]+data.series[0].fields[8].values.buffer[indexfilm[i]]+data.series[0].fields[10].values.buffer[indexfilm[i]];
+
 }
 
 
@@ -163,7 +165,83 @@ for (i=0; i<indexpppe.length; i++){
 
 
 
+//INDEX PET FONCE /F.DEV / PCC
+indexfonce =[0,0,0,0,0,0,0,0];
+for ( i =0; i<data.series[0].fields[0].values.buffer.length; i++){
+  if(data.series[0].fields[0].values.buffer[i]== "opaque_pet" ){
+    indexfonce[0]=i;
+     
+  }
+  if(data.series[0].fields[0].values.buffer[i]== "colored_pet" ){
+    indexfonce[1]=i;
+     
+  }
+  if(data.series[0].fields[0].values.buffer[i]== "brown_pet" ){
+    indexfonce[2]=i;
+    
+  }
+  if(data.series[0].fields[0].values.buffer[i]== "green_pet" ){
+    indexfonce[3]=i;
+    
+  }
+  if(data.series[0].fields[0].values.buffer[i]== "plastic_clamshell" ){
+    indexfonce[4]=i;
+    
+  }
+  if(data.series[0].fields[0].values.buffer[i]== "plastic_ps_foam" ){
+    indexfonce[5]=i;
+    
+  }
 
+  if(data.series[0].fields[0].values.buffer[i]== "plastic_ps_rigid" ){
+    indexfonce[6]=i;
+    
+  }
+
+  if(data.series[0].fields[0].values.buffer[i]== "carton" ){
+    indexfonce[7]=i;
+    
+  }
+ 
+}
+
+
+
+
+
+
+totalfonce =0
+for (i=0; i<indexpppe.length; i++){
+    var2 =  data.series[0].fields[2].values.buffer[indexfonce[i]];
+    var4 =  data.series[0].fields[4].values.buffer[indexfonce[i]];
+    var6 =  data.series[0].fields[6].values.buffer[indexfonce[i]];
+    var8 =  data.series[0].fields[8].values.buffer[indexfonce[i]];
+    var10 =  data.series[0].fields[10].values.buffer[indexfonce[i]];
+    if (isNaN(var2) )
+    {
+        var2=0
+    }
+    if (isNaN(var4) )
+    {
+        var4=0
+    }
+    if (isNaN(var6) )
+    {
+        var6=0
+    }
+    if (isNaN(var8) )
+    {
+        var8=0
+    }
+    if (isNaN(var10) )
+    {
+        var10=0
+    }
+    totalfonce += var2+var4+var6+var8+var10;
+     
+  
+  
+}
 
 
 
@@ -222,7 +300,7 @@ for (i = 0; i< data.series[0].fields[2].values.buffer.length; i++)
  htmlgraphicsValue = htmlNode.getElementById('jrm');
 
 if (htmlgraphicsValue) {
-
+value =0
   value =data.series[0].fields[13].values.left.buffer[indexjrm]*data.series[0].fields[13].values.right.buffer[indexjrm];
 
     htmlgraphicsValue.textContent = (value).toPrecision(3);
@@ -233,7 +311,8 @@ if (htmlgraphicsValue) {
 htmlgraphicsValue = htmlNode.getElementById('emr');
 
 if (htmlgraphicsValue) {
-   
+   value =0
+   value2=0
     value =data.series[0].fields[14].values.left.buffer[indexcartonbrun]*data.series[0].fields[14].values.right.buffer[indexcartonbrun];
     value2 =data.series[0].fields[14].values.left.buffer[indexcartonnettes]*data.series[0].fields[14].values.right.buffer[indexcartonnettes];
 
@@ -272,13 +351,26 @@ if (htmlgraphicsValue) {
    
 }
 
+//PET FONCE ET AUTRES
+htmlgraphicsValue = htmlNode.getElementById('fonce');
+
+if (htmlgraphicsValue) {
+ value = 0
+    for ( j = 0; j< indexfonce.length; j++){
+        value+=data.series[0].fields[17].values.left.buffer[indexfonce[j]]*data.series[0].fields[17].values.right.buffer[indexfonce[j]];
+    }
+    
+
+    htmlgraphicsValue.textContent = (value).toPrecision(3);
+}  
+   
 
 // QUALITE
 //JRM
  htmlgraphicsValue = htmlNode.getElementById('jrmq');
 
 if (htmlgraphicsValue) {
-  
+  value = 0
   value =data.series[0].fields[2].values.buffer[indexjrm];
   
   htmlgraphicsValue.textContent = (value/total163).toPrecision(3);
@@ -288,7 +380,8 @@ if (htmlgraphicsValue) {
 //EMR
  htmlgraphicsValue = htmlNode.getElementById('emrq');
  if (htmlgraphicsValue) {
-
+value = 0
+value2=0
   value =data.series[0].fields[6].values.buffer[indexcartonbrun];
   value2 =data.series[0].fields[6].values.buffer[indexcartonnettes];
   
@@ -330,7 +423,18 @@ if (htmlgraphicsValue) {
 }
 
 
+//PET FONCE ET AUTRES
+htmlgraphicsValue = htmlNode.getElementById('fonceq');
 
+if (htmlgraphicsValue) {
+    value =0
+    for ( j = 0; j< indexfonce.length; j++){
+        value += data.series[0].fields[4].values.buffer[indexfonce[j]];
+    }
+    
+    htmlgraphicsValue.textContent = ((value)/total167).toPrecision(3);
+  
+}
 
 //TAUX DE CAPTATION
 //JRM
@@ -368,8 +472,8 @@ htmlgraphicsValue = htmlNode.getElementById('pett');
 if (htmlgraphicsValue) {
   
     value =0
-    for ( j = 0; j< indexpppe.length; j++){
-        value += data.series[0].fields[10].values.buffer[indexpppe[j]];
+    for ( j = 0; j< indexrefus.length; j++){
+        value += data.series[0].fields[10].values.buffer[indexrefus[j]];
     }  
 
     htmlgraphicsValue.textContent =(total166/(total166+ value)).toPrecision(3);
@@ -389,6 +493,18 @@ if (htmlgraphicsValue) {
     htmlgraphicsValue.textContent =(total165/(total165+ value)).toPrecision(3);
 }
 
+//PET FONCE ET AUTRES
+htmlgraphicsValue = htmlNode.getElementById('foncet');
+
+if (htmlgraphicsValue) {
+  
+    value =0
+    for ( j = 0; j< indexrefus.length; j++){
+        value += data.series[0].fields[4].values.buffer[indexrefus[j]];
+    }  
+
+    htmlgraphicsValue.textContent =(total167/(total167+ value)).toPrecision(3);
+}
 
 
 //DIFFUSION
@@ -477,7 +593,7 @@ if (htmlgraphicsValue) {
   valueemr1_2 =data.series[0].fields[2].values.buffer[indexcartonnettes];
   
 
-  diffusionemr1 =(((valueemr1+valueemr1_2)/(totalcartonbrun+totalcartonnettes)*100)).toPrecision(3)
+  diffusionemr1 =(((valueemr1+valueemr1_2)/(totalcartonbrun+totalcartonnettes))*100).toPrecision(3)
   
   
 
@@ -493,7 +609,7 @@ if (htmlgraphicsValue) {
   valueemr2 =data.series[0].fields[6].values.buffer[indexcartonbrun];
   valueemr2_2 =data.series[0].fields[6].values.buffer[indexcartonnettes];
  
-  diffusionemr2 = (((valueemr2+valueemr2_2)/(totalcartonbrun+totalcartonnettes)*100)).toPrecision(3)
+  diffusionemr2 = (((valueemr2+valueemr2_2)/(totalcartonbrun+totalcartonnettes))*100).toPrecision(3)
   
   htmlgraphicsValue.textContent = diffusionemr2;
   
@@ -508,7 +624,7 @@ if (htmlgraphicsValue) {
   valueemr3 =data.series[0].fields[10].values.buffer[indexcartonbrun];
   valueemr3_2 =data.series[0].fields[10].values.buffer[indexcartonnettes];
  
-  diffusionemr3 = (((valueemr3+valueemr3_2)/(totalcartonbrun+totalcartonnettes)*100)).toPrecision(3)
+  diffusionemr3 = (((valueemr3+valueemr3_2)/(totalcartonbrun+totalcartonnettes))*100).toPrecision(3)
   
   
 
@@ -525,7 +641,7 @@ if (htmlgraphicsValue) {
   valueemr4 =data.series[0].fields[4].values.buffer[indexcartonbrun];
   valueemr4_2 =data.series[0].fields[4].values.buffer[indexcartonnettes];
  
-  diffusionemr4 = (((valueemr4+valueemr4_2)/(totalcartonbrun+totalcartonnettes)*100)).toPrecision(3)
+  diffusionemr4 = (((valueemr4+valueemr4_2)/(totalcartonbrun+totalcartonnettes))*100).toPrecision(3)
   
 
 
@@ -542,7 +658,7 @@ if (htmlgraphicsValue) {
   valueemr5 =data.series[0].fields[8].values.buffer[indexcartonbrun];
   valueemr5_2 =data.series[0].fields[8].values.buffer[indexcartonnettes];
  
-  diffusionemr5 = (((valueemr5+valueemr5_2)/(totalcartonbrun+totalcartonnettes)*100)).toPrecision(3)
+  diffusionemr5 = (((valueemr5+valueemr5_2)/(totalcartonbrun+totalcartonnettes))*100).toPrecision(3)
   
   
     htmlgraphicsValue.textContent = diffusionemr5;
@@ -658,6 +774,293 @@ if (htmlgraphicsValue) {
   
     htmlgraphicsValue.textContent = (parseFloat(diffusionpet1)+parseFloat(diffusionpet2)+parseFloat(diffusionpet3)+parseFloat(diffusionpet4)+parseFloat(diffusionpet5)).toPrecision(4);
  
+}
+
+//PET FONCE ET AUTRES
+
+htmlgraphicsValue = htmlNode.getElementById('fonced');
+
+if (htmlgraphicsValue) {
+    valuefonce1 =0
+  for(i =0; i<indexfonce.length; i++){
+    vari = data.series[0].fields[2].values.buffer[indexfonce[i]];
+    if (isNaN(vari)==0){
+        valuefonce1 +=vari
+    }
+    
+  }
+
+  
+  diffusionfonce1 =((valuefonce1/totalfonce)*100).toPrecision(3)
+  
+  
+
+    htmlgraphicsValue.textContent =diffusionfonce1;
+
+}
+
+
+
+ htmlgraphicsValue = htmlNode.getElementById('fonced2');
+
+ if (htmlgraphicsValue) {
+    valuefonce2 =0
+  for(i =0; i<indexfonce.length; i++){
+    vari =data.series[0].fields[6].values.buffer[indexfonce[i]];
+    if (isNaN(vari)==0){
+        valuefonce2 += vari     
+    }
+    
+  }
+  
+  diffusionfonce2 =((valuefonce2/totalfonce)*100).toPrecision(3)
+  
+  
+
+    htmlgraphicsValue.textContent =diffusionfonce2;
+ }
+
+ htmlgraphicsValue = htmlNode.getElementById('fonced3');
+
+ if (htmlgraphicsValue) {
+    valuefonce3=0
+  for(i =0; i<indexfonce.length; i++){
+    vari =data.series[0].fields[10].values.buffer[indexfonce[i]]
+    if (isNaN(vari)==0){
+    valuefonce3 += vari;
+    }
+
+  }
+  
+  diffusionfonce3 =((valuefonce3/totalfonce)*100).toPrecision(3)
+  
+  
+
+    htmlgraphicsValue.textContent =diffusionfonce3;
+ }
+
+
+ htmlgraphicsValue = htmlNode.getElementById('fonced4');
+
+
+if (htmlgraphicsValue) {
+    valuefonce4 =0
+    for(i =0; i<indexfonce.length; i++){
+        vari =data.series[0].fields[4].values.buffer[indexfonce[i]];
+        if (isNaN(vari)==0){
+            valuefonce4 += vari;
+        }
+      
+    }
+    
+    diffusionfonce4 =((valuefonce4/totalfonce)*100).toPrecision(3)
+    
+    
+
+    htmlgraphicsValue.textContent =diffusionfonce4;
+    }
+    
+
+ htmlgraphicsValue = htmlNode.getElementById('fonced5');
+
+ if (htmlgraphicsValue) {
+    valuefonce5 =0
+  for(i =0; i<indexfonce.length; i++){
+    vari =data.series[0].fields[8].values.buffer[indexfonce[i]];
+    if (isNaN(vari)==0){
+    valuefonce5 +=vari;
+    }
+    
+  }
+  
+  diffusionfonce5 =((valuefonce5/totalfonce)*100).toPrecision(3)
+  
+  
+
+    htmlgraphicsValue.textContent =diffusionfonce5;
+ }
+
+
+ htmlgraphicsValue = htmlNode.getElementById('total4');
+
+if (htmlgraphicsValue) {
+  
+  
+    htmlgraphicsValue.textContent = (parseFloat(diffusionfonce1)+parseFloat(diffusionfonce2)+parseFloat(diffusionfonce3)+parseFloat(diffusionfonce4)+parseFloat(diffusionfonce5)).toPrecision(4);
+ 
+}
+
+//FILMS
+
+htmlgraphicsValue = htmlNode.getElementById('filmd');
+
+if (htmlgraphicsValue) {
+    valuefilm1 =0
+  for(i =0; i<indexfilm.length; i++){
+    vari = data.series[0].fields[2].values.buffer[indexfilm[i]];
+    
+    if (isNaN(vari)==0){
+        valuefilm1 +=vari
+        
+    }
+    
+  }
+
+  
+  diffusionfilm1 =((valuefilm1/totalfilm)*100).toPrecision(3)
+  
+  
+
+    htmlgraphicsValue.textContent =diffusionfilm1;
+
+}
+
+
+
+ htmlgraphicsValue = htmlNode.getElementById('filmd2');
+
+ if (htmlgraphicsValue) {
+    valuefilm2 =0
+  for(i =0; i<indexfilm.length; i++){
+    vari =data.series[0].fields[6].values.buffer[indexfilm[i]];
+    
+    if (isNaN(vari)==0){
+        valuefilm2 += vari     
+    }
+    
+  }
+  
+  diffusionfilm2 =((valuefilm2/totalfilm)*100).toPrecision(3)
+  
+  
+
+    htmlgraphicsValue.textContent =diffusionfilm2;
+ }
+
+ htmlgraphicsValue = htmlNode.getElementById('filmd3');
+
+ if (htmlgraphicsValue) {
+    valuefilm3=0
+  for(i =0; i<indexfilm.length; i++){
+    vari =data.series[0].fields[10].values.buffer[indexfilm[i]]
+    
+    if (isNaN(vari)==0){
+    valuefilm3 += vari;
+    }
+
+  }
+  
+  diffusionfilm3 =((valuefilm3/totalfilm)*100).toPrecision(3)
+  
+  
+
+    htmlgraphicsValue.textContent =diffusionfilm3;
+ }
+
+
+ htmlgraphicsValue = htmlNode.getElementById('filmd4');
+
+
+if (htmlgraphicsValue) {
+    valuefilm4 =0
+    for(i =0; i<indexfilm.length; i++){
+        vari =data.series[0].fields[4].values.buffer[indexfilm[i]];
+        
+        if (isNaN(vari)==0){
+            valuefilm4 += vari;
+        }
+      
+    }
+    
+    diffusionfilm4 =((valuefilm4/totalfilm)*100).toPrecision(3)
+    
+    
+
+    htmlgraphicsValue.textContent =diffusionfilm4;
+    }
+    
+
+ htmlgraphicsValue = htmlNode.getElementById('filmd5');
+
+ if (htmlgraphicsValue) {
+    valuefilm5 =0
+  for(i =0; i<indexfilm.length; i++){
+    vari =data.series[0].fields[8].values.buffer[indexfilm[i]];
+    
+    if (isNaN(vari)==0){
+    valuefilm5 +=vari;
+    }
+    
+  }
+  
+  diffusionfilm5 =((valuefilm5/totalfilm)*100).toPrecision(3)
+  
+  
+
+    htmlgraphicsValue.textContent =diffusionfilm5;
+ }
+
+
+ htmlgraphicsValue = htmlNode.getElementById('total5');
+
+if (htmlgraphicsValue) {
+  
+  
+    htmlgraphicsValue.textContent = (parseFloat(diffusionfilm1)+parseFloat(diffusionfilm2)+parseFloat(diffusionfilm3)+parseFloat(diffusionfilm4)+parseFloat(diffusionfilm5)).toPrecision(4);
+ 
+}
+
+
+htmlgraphicsValue = htmlNode.getElementById('perte1');
+
+if (htmlgraphicsValue) {
+  
+    perte1 =(100-(parseFloat(diffusionjrm1)+parseFloat(diffusionemr1)+parseFloat(diffusionfonce1)+parseFloat(diffusionfilm1)+parseFloat(diffusionpet1))).toPrecision(4);
+    
+    htmlgraphicsValue.textContent = perte1
+}
+
+htmlgraphicsValue = htmlNode.getElementById('perte2');
+
+if (htmlgraphicsValue) {
+  
+  perte2=(100-(parseFloat(diffusionjrm2)+parseFloat(diffusionemr2)+parseFloat(diffusionfonce2)+parseFloat(diffusionfilm2)+parseFloat(diffusionpet2))).toPrecision(4);
+    
+    htmlgraphicsValue.textContent = perte2
+}
+
+htmlgraphicsValue = htmlNode.getElementById('perte3');
+
+if (htmlgraphicsValue) {
+  
+  perte3 =(100-(parseFloat(diffusionjrm3)+parseFloat(diffusionemr3)+parseFloat(diffusionfonce3)+parseFloat(diffusionfilm3)+parseFloat(diffusionpet3))).toPrecision(4);
+    
+    htmlgraphicsValue.textContent = perte3
+}
+
+htmlgraphicsValue = htmlNode.getElementById('perte4');
+
+if (htmlgraphicsValue) {
+  
+  perte4 =(100-(parseFloat(diffusionjrm4)+parseFloat(diffusionemr4)+parseFloat(diffusionfonce4)+parseFloat(diffusionfilm4)+parseFloat(diffusionpet4))).toPrecision(4);
+    
+    htmlgraphicsValue.textContent = perte4
+}
+htmlgraphicsValue = htmlNode.getElementById('perte5');
+
+if (htmlgraphicsValue) {
+  
+  perte5=(100-(parseFloat(diffusionjrm5)+parseFloat(diffusionemr5)+parseFloat(diffusionfonce5)+parseFloat(diffusionfilm5)+parseFloat(diffusionpet5))).toPrecision(4);
+    
+    htmlgraphicsValue.textContent =perte5
+}
+
+htmlgraphicsValue = htmlNode.getElementById('pertetotale');
+
+if (htmlgraphicsValue) {
+  
+  
+    htmlgraphicsValue.textContent = parseFloat(perte1) + parseFloat(perte2) + parseFloat(perte3) + parseFloat(perte4) +parseFloat(perte5).toPrecision(4);
 }
 value =data.series
 console.log(value)
