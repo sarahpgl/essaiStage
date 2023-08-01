@@ -41,7 +41,7 @@ def get_tab():
                 
                 
                 
-            #on se place au niveau de table"
+            #on se place au niveau de table
                 for p in soup.find_all("table"):
                             
                             
