@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<style>
+        tr:nth-child(even) {background-color: rgb(223, 232, 244);}
+        table {
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            }
+
+            table tr {
+            border-bottom: 1px solid rgb(231, 231, 231);
+            text-align: center;
+            }
+
+            table td {
+            padding: 20px;
+            }
+            button {
+                background-color: aliceblue;
+                padding: 4px;
+                padding-right: 6px;
+                padding-left: 6px;
+            }
+    
+         
+    </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Services</title>
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" rel="stylesheet"/>
+</head>
+<body>
+<script>
+
+
+        
+        document.addEventListener('click', (e) =>
+        {
+            // get l'id du bouton cliquév
+             let elementId = e.target.id;
+            
+
+            //si l'élément cliqué est un bouton
+             if (e.target.type == 'button') {
+                //n° de l'id
+                 number = String(elementId).split('bouton')[1]
+                // valeur du nouveau poids
+                 valeur = document.getElementById("modify"+number).value;
+                //id du code de l'élément
+                 codeId = "code"+number;
+                 //code de l'élément
+                 truecode = document.getElementById(codeId).innerHTML;
+                 truecode =String(truecode.replace(" ", ""))
+                 //affichage 
+                 document.getElementById(elementId).innerHTML = "Masse enregistrée";
+                 document.getElementById(elementId).style.backgroundColor =  '#00FF00';
+                 document.getElementById("poids"+number).innerHTML = valeur;
+                 document.getElementById("modify"+number).value = "";
+                 // désactiver le bouton une fois cliqué
+                 document.getElementById("elementId").disabled = true; 
+                 //délai pour l'activation du bouton
+                 setTimeout(function(){
+                    document.getElementById(elementId).innerHTML = "Modifier le poids";
+                    document.getElementById(elementId).style.backgroundColor =  '#f2f2f2';                 
+                },1000);
+            p=parseFloat(valeur) 
+            c = String(truecode)
+            //appelle de la fonction set_poids lors du clic avec en paramètre le code et le nouveau poids associé
+            $.ajax({
+
+                url: "/test?newpoids="+p+"&code="+c,
+                data :{ code : c, newpoids : p},
+
+                type: "POST",
+
+
+
+                success: function(res){
+                    console.log(res)
+                }
+             })
+
+            
+            }
+        
+   
+        
+    })
+    
+
+    
+    
+    </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<h1 style="margin:2%;"> <center>Table de données</center></h1>
+<table>
+<tr>
+<th>
+            Code
+        </th>
+<th>
+            Poids
+        </th>
+<th>
+            Modification
+        </th>
+<th>
+            Valider
+        </th>
+</tr>
+<tr><td id="code0"> aerosol </td><td id="poids0"> 20.4116 </td><td><input id="modify0" name="name" size="10" type="text"/> </td><td> <button id="bouton0" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code1"> alert_electronic </td><td id="poids1"> 0.0 </td><td><input id="modify1" name="name" size="10" type="text"/> </td><td> <button id="bouton1" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code2"> aluminum_other </td><td id="poids2"> 27.2155 </td><td><input id="modify2" name="name" size="10" type="text"/> </td><td> <button id="bouton2" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code3"> blue_pet </td><td id="poids3"> 18.1437 </td><td><input id="modify3" name="name" size="10" type="text"/> </td><td> <button id="bouton3" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code4"> brown_pet </td><td id="poids4"> 18.1437 </td><td><input id="modify4" name="name" size="10" type="text"/> </td><td> <button id="bouton4" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code5"> carton </td><td id="poids5"> 50.0 </td><td><input id="modify5" name="name" size="10" type="text"/> </td><td> <button id="bouton5" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code6"> colored_hdpe </td><td id="poids6"> 38.5553 </td><td><input id="modify6" name="name" size="10" type="text"/> </td><td> <button id="bouton6" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code7"> colored_pet </td><td id="poids7"> 18.1437 </td><td><input id="modify7" name="name" size="10" type="text"/> </td><td> <button id="bouton7" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code8"> compost_wood </td><td id="poids8"> 0.0 </td><td><input id="modify8" name="name" size="10" type="text"/> </td><td> <button id="bouton8" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code9"> corrugated_cardboard </td><td id="poids9"> 7.71106 </td><td><input id="modify9" name="name" size="10" type="text"/> </td><td> <button id="bouton9" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code10"> ferrous </td><td id="poids10"> 20.4116 </td><td><input id="modify10" name="name" size="10" type="text"/> </td><td> <button id="bouton10" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code11"> fiber_boxboard </td><td id="poids11"> 4.98951 </td><td><input id="modify11" name="name" size="10" type="text"/> </td><td> <button id="bouton11" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code12"> fiber_carrier_stock </td><td id="poids12"> 0.453592 </td><td><input id="modify12" name="name" size="10" type="text"/> </td><td> <button id="bouton12" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code13"> fiber_cups </td><td id="poids13"> 21.3188 </td><td><input id="modify13" name="name" size="10" type="text"/> </td><td> <button id="bouton13" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code14"> fiber_cups_starbucks </td><td id="poids14"> 0.453592 </td><td><input id="modify14" name="name" size="10" type="text"/> </td><td> <button id="bouton14" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code15"> fiber_magazine </td><td id="poids15"> 10.0 </td><td><input id="modify15" name="name" size="10" type="text"/> </td><td> <button id="bouton15" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code16"> fiber_old_newspaper </td><td id="poids16"> 10.0 </td><td><input id="modify16" name="name" size="10" type="text"/> </td><td> <button id="bouton16" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code17"> fiber_paper </td><td id="poids17"> 10.0 </td><td><input id="modify17" name="name" size="10" type="text"/> </td><td> <button id="bouton17" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code18"> fiber_paperboard_can </td><td id="poids18"> 0.0 </td><td><input id="modify18" name="name" size="10" type="text"/> </td><td> <button id="bouton18" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code19"> fiber_sorted_office_paper </td><td id="poids19"> 10.0 </td><td><input id="modify19" name="name" size="10" type="text"/> </td><td> <button id="bouton19" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code20"> glass_container </td><td id="poids20"> 226.796 </td><td><input id="modify20" name="name" size="10" type="text"/> </td><td> <button id="bouton20" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code21"> green_pet </td><td id="poids21"> 21.0 </td><td><input id="modify21" name="name" size="10" type="text"/> </td><td> <button id="bouton21" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code22"> metals </td><td id="poids22"> 20.4116 </td><td><input id="modify22" name="name" size="10" type="text"/> </td><td> <button id="bouton22" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code23"> miscellaneous </td><td id="poids23"> 0.0 </td><td><input id="modify23" name="name" size="10" type="text"/> </td><td> <button id="bouton23" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code24"> natural_hdpe </td><td id="poids24"> 43.0912 </td><td><input id="modify24" name="name" size="10" type="text"/> </td><td> <button id="bouton24" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code25"> opaque_pet </td><td id="poids25"> 18.1437 </td><td><input id="modify25" name="name" size="10" type="text"/> </td><td> <button id="bouton25" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code26"> organic </td><td id="poids26"> 0.0 </td><td><input id="modify26" name="name" size="10" type="text"/> </td><td> <button id="bouton26" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code27"> other_fiber </td><td id="poids27"> 10.0 </td><td><input id="modify27" name="name" size="10" type="text"/> </td><td> <button id="bouton27" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code28"> other_plastic </td><td id="poids28"> 36.2874 </td><td><input id="modify28" name="name" size="10" type="text"/> </td><td> <button id="bouton28" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code29"> plastic_black </td><td id="poids29"> 29.4835 </td><td><input id="modify29" name="name" size="10" type="text"/> </td><td> <button id="bouton29" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code30"> plastic_bubble_mailer </td><td id="poids30"> 34.0194 </td><td><input id="modify30" name="name" size="10" type="text"/> </td><td> <button id="bouton30" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code31"> plastic_caps </td><td id="poids31"> 0.0453592 </td><td><input id="modify31" name="name" size="10" type="text"/> </td><td> <button id="bouton31" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code32"> plastic_clamshell </td><td id="poids32"> 20.0 </td><td><input id="modify32" name="name" size="10" type="text"/> </td><td> <button id="bouton32" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code33"> plastic_cup_clear </td><td id="poids33"> 10.8862 </td><td><input id="modify33" name="name" size="10" type="text"/> </td><td> <button id="bouton33" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code34"> plastic_cups </td><td id="poids34"> 10.8862 </td><td><input id="modify34" name="name" size="10" type="text"/> </td><td> <button id="bouton34" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code35"> plastic_lids </td><td id="poids35"> 22.6796 </td><td><input id="modify35" name="name" size="10" type="text"/> </td><td> <button id="bouton35" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code36"> plastic_pp_bottle </td><td id="poids36"> 10.8862 </td><td><input id="modify36" name="name" size="10" type="text"/> </td><td> <button id="bouton36" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code37"> plastic_pp_pod </td><td id="poids37"> 10.8862 </td><td><input id="modify37" name="name" size="10" type="text"/> </td><td> <button id="bouton37" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code38"> plastic_ps_foam </td><td id="poids38"> 9.07184 </td><td><input id="modify38" name="name" size="10" type="text"/> </td><td> <button id="bouton38" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code39"> plastic_ps_rigid </td><td id="poids39"> 9.07184 </td><td><input id="modify39" name="name" size="10" type="text"/> </td><td> <button id="bouton39" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code40"> plastic_tubs </td><td id="poids40"> 10.8862 </td><td><input id="modify40" name="name" size="10" type="text"/> </td><td> <button id="bouton40" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code41"> polyethylene </td><td id="poids41"> 18.1437 </td><td><input id="modify41" name="name" size="10" type="text"/> </td><td> <button id="bouton41" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code42"> snack_packaging </td><td id="poids42"> 0.0 </td><td><input id="modify42" name="name" size="10" type="text"/> </td><td> <button id="bouton42" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr><tr><td id="code43"> thin_film </td><td id="poids43"> 5.0 </td><td><input id="modify43" name="name" size="10" type="text"/> </td><td> <button id="bouton43" style="border-radius:10px;" type="button">Modifier le poids</button> </td></tr></table>
+
+</body>
+</html>
