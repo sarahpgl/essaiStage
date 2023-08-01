@@ -6,19 +6,8 @@ app = Flask(__name__)
 CORS(app)
 
 
-
-def go_home():
- 
-    c = mysql.connector.connect(user='pythonuser', password='#S.ei7c.BDD',
-                              host='db',
-                              database='paprec_seiches').cursor()
-    
-    c.execute("CREATE TABLE IF NOT EXISTS STUDENTS("
-              "id TEXT, firstname TEXT, lastname TEXT, department TEXT)"
-              )
-    
-
-@app.route('/getStudents', methods=['GET'])
+#fonction qui se connecte à la base de données pour faire une requête select et formatte la sortie
+@app.route('/getpoids', methods=['GET'])
 def get_poids():
     with app.app_context() : 
         con = mysql.connector.connect(user='pythonuser', password='#S.ei7c.BDD',
@@ -33,6 +22,9 @@ def get_poids():
         c.close()  
         con.close()
         return data
+    
+    
+#fonction qui met en forme le tableau
 @app.route('/')    
 def get_tab():
         with app.app_context() : 
@@ -49,9 +41,9 @@ def get_tab():
                 
                 
                 
-            #on se place au niveau du div class="row row-cols-4"
+            #on se place au niveau de table"
                 for p in soup.find_all("table"):
-                            #pour chaque service, on affiche son nom
+                            
                             
                                 if isinstance(p, NavigableString):
                                     continue
@@ -71,24 +63,14 @@ def get_tab():
             html_doc.close()
 
             return render_template('index2.html')
-     
-@app.route('/')       
-def set_poids(newpoids,code):
-        with app.app_context() : 
-              con = mysql.connector.connect(user='pythonuser', password='#S.ei7c.BDD',
-                                host='172.16.148.2',
-                                database='paprec_seiches')
-              c = con.cursor()
-    
-              set_p = ("UPDATE poids SET p = '{}' where code = '{}'".format(newpoids, code))
-              c.execute(set_p)
-              con.commit
-              c.close()  
-              con.close()
-              return {}
+
+
+
         
+
+#fonction qui est appelée par le js et qui permet de faire une requête d'update à la base de données        
 @app.route('/test', methods=['GET', 'POST'])    
-def set_test():
+def set_poids():
     with app.app_context() : 
              
             arg = request.args
@@ -115,7 +97,7 @@ def set_test():
       
         
 
-
+#main crée le serveur sur le port 1701
 if __name__ == '__main__':
     get_tab()
     app.run(host="0.0.0.0", port=1701)
