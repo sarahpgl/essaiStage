@@ -47,31 +47,36 @@
         
         document.addEventListener('click', (e) =>
         {
-            // Retrieve id from clicked element
+            // get l'id du bouton cliquév
              let elementId = e.target.id;
-            // console.log(elementId)
+            
 
-            // // If element has id
+            //si l'élément cliqué est un bouton
              if (e.target.type == 'button') {
+                //n° de l'id
                  number = String(elementId).split('bouton')[1]
-                
+                // valeur du nouveau poids
                  valeur = document.getElementById("modify"+number).value;
-
+                //id du code de l'élément
                  codeId = "code"+number;
+                 //code de l'élément
                  truecode = document.getElementById(codeId).innerHTML;
                  truecode =String(truecode.replace(" ", ""))
-                 console.log(truecode)
+                 //affichage 
                  document.getElementById(elementId).innerHTML = "Masse enregistrée";
                  document.getElementById(elementId).style.backgroundColor =  '#00FF00';
                  document.getElementById("poids"+number).innerHTML = valeur;
                  document.getElementById("modify"+number).value = "";
+                 // désactiver le bouton une fois cliqué
                  document.getElementById("elementId").disabled = true; 
+                 //délai pour l'activation du bouton
                  setTimeout(function(){
                     document.getElementById(elementId).innerHTML = "Modifier le poids";
                     document.getElementById(elementId).style.backgroundColor =  '#f2f2f2';                 
                 },1000);
             p=parseFloat(valeur) 
             c = String(truecode)
+            //appelle de la fonction set_poids lors du clic avec en paramètre le code et le nouveau poids associé
             $.ajax({
 
                 url: "/test?newpoids="+p+"&code="+c,
