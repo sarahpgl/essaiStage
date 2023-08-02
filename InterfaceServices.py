@@ -102,7 +102,7 @@ if __name__ == "__main__":
     
     modif()
     #application lancée sur le port 1702
-    app.run(port = 1702)
+    app.run(port = 1702, debug = True)
 
     
     
